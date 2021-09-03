@@ -28,6 +28,7 @@ public class CategoryController {
 		if (Objects.nonNull(categoryService.readCategory(category.getCategoryName()))) {
 			return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category already exists"), HttpStatus.CONFLICT);
 		}
+
 		categoryService.createCategory(category);
 		return new ResponseEntity<>(new ApiResponse(true, "created the category"), HttpStatus.CREATED);
 	}
