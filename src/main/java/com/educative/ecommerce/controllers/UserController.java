@@ -1,6 +1,8 @@
 package com.educative.ecommerce.controllers;
 
 import com.educative.ecommerce.dto.user.SignupDto;
+import com.educative.ecommerce.exceptions.CustomException;
+import com.educative.ecommerce.dto.user.SignUpResponseDto;
 import com.educative.ecommerce.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +18,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping("/signup")
-    public ResponseDto Signup(@RequestBody SignupDto signupDto) throws CustomException {
+    public SignUpResponseDto Signup(@RequestBody SignupDto signupDto) throws CustomException {
         return userService.signUp(signupDto);
     }
 
