@@ -1,6 +1,9 @@
 package com.educative.ecommerce.controllers;
 
+import com.educative.ecommerce.dto.user.SignInDto;
+import com.educative.ecommerce.dto.user.SignInResponseDto;
 import com.educative.ecommerce.dto.user.SignupDto;
+import com.educative.ecommerce.exceptions.AuthenticationFailException;
 import com.educative.ecommerce.exceptions.CustomException;
 import com.educative.ecommerce.dto.user.SignUpResponseDto;
 import com.educative.ecommerce.service.UserService;
@@ -20,6 +23,11 @@ public class UserController {
     @PostMapping("/signup")
     public SignUpResponseDto Signup(@RequestBody SignupDto signupDto) throws CustomException {
         return userService.signUp(signupDto);
+    }
+
+    @PostMapping("/signIn")
+    public SignInResponseDto Signup(@RequestBody SignInDto signInDto) throws CustomException, AuthenticationFailException {
+        return userService.signIn(signInDto);
     }
 
 }
