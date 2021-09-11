@@ -4,6 +4,7 @@ package com.educative.ecommerce.service;
 import com.educative.ecommerce.dto.user.SignUpResponseDto;
 import com.educative.ecommerce.dto.user.SignupDto;
 import com.educative.ecommerce.exceptions.CustomException;
+import com.educative.ecommerce.model.AuthenticationToken;
 import com.educative.ecommerce.model.User;
 import com.educative.ecommerce.repository.UserRepository;
 import org.slf4j.Logger;
@@ -21,6 +22,9 @@ public class UserService {
 
     @Autowired
     UserRepository userRepository;
+
+    @Autowired
+    AuthenticationService authenticationService;
 
     Logger logger = LoggerFactory.getLogger(UserService.class);
 
@@ -45,6 +49,10 @@ public class UserService {
             // save the User
              userRepository.save(user);
             // success in creating
+            // generate token for user
+            final AuthenticationToken authenticationToken = new AuthenticationToken(user);
+            // save token in database
+            authenticationService.saveConfirmationToken(authenticationToken);
             return new SignUpResponseDto("success", "user created successfully");
         } catch (Exception e) {
             // handle signup error
