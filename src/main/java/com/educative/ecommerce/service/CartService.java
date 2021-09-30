@@ -43,4 +43,8 @@ public class CartService {
         // return cart DTO
         return new CartDto(cartItems,totalCost);
     }
+
+    public void deleteUserCartItems(User user) {
+        cartRepository.deleteByUser(user);
+    }
 }
