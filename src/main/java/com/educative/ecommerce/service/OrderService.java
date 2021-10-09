@@ -3,6 +3,7 @@ package com.educative.ecommerce.service;
 import com.educative.ecommerce.dto.cart.CartDto;
 import com.educative.ecommerce.dto.cart.CartItemDto;
 import com.educative.ecommerce.dto.checkout.CheckoutItemDto;
+import com.educative.ecommerce.exceptions.OrderNotFoundException;
 import com.educative.ecommerce.model.Order;
 import com.educative.ecommerce.model.OrderItem;
 import com.educative.ecommerce.model.User;
@@ -21,6 +22,7 @@ import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
@@ -118,9 +120,21 @@ public class OrderService {
             // add to order item list
             orderItemsRepository.save(orderItem);
         }
-
         //
         cartService.deleteUserCartItems(user);
+    }
+
+    public List<Order> listOrders(User user) {
+        return orderRepository.findAllByUserOrderByCreatedDateDesc(user);
+    }
+
+
+    public Order getOrder(Integer orderId) throws OrderNotFoundException {
+        Optional<Order> order = orderRepository.findById(orderId);
+        if (order.isPresent()) {
+            return order.get();
+        }
+        throw new OrderNotFoundException("Order not found");
     }
 }
 

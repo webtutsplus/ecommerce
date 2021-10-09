@@ -1,5 +1,7 @@
 package com.educative.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
@@ -22,6 +24,7 @@ public class OrderItem {
     private Date createdDate;
 
     @ManyToOne
+    @JsonIgnore
     @JoinColumn(name = "order_id", referencedColumnName = "id")
     private Order order;
 
