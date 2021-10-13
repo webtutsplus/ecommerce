@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CartService {
@@ -50,8 +51,21 @@ public class CartService {
 
         // first check if cartItemId is valid else throw an CartItemNotExistException
 
+        Optional<Cart> optionalCart = cartRepository.findById(cartItemId);
+
+        if (!optionalCart.isPresent()) {
+            throw new CartItemNotExistException("cartItemId not valid");
+        }
+
         // next check if the cartItem belongs to the user else throw CartItemNotExistException exception
 
+        Cart cart = optionalCart.get();
+
+        if (cart.getUser() != user) {
+            throw new CartItemNotExistException("cart item does not belong to user");
+        }
+
+        cartRepository.deleteById(cartItemId);
         // delete the cart item
     }
 }
