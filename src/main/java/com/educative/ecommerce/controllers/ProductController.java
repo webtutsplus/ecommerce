@@ -29,12 +29,8 @@ public class ProductController {
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping("/")
-    public ResponseEntity<List<ProductDto>> getProducts() {
-        List<ProductDto> body = productService.listProducts();
-        return new ResponseEntity<>(body, HttpStatus.OK);
-    }
 
+    // already implemented
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
@@ -46,14 +42,17 @@ public class ProductController {
         return new ResponseEntity<>(new ApiResponse(true, "Product has been added"), HttpStatus.CREATED);
     }
 
+
+    @GetMapping("/")
+    public ResponseEntity<List<ProductDto>> getProducts() {
+        // TODO
+        // should list all the products
+    }
+
     @PostMapping("/update/{productID}")
-    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") Integer productID, @RequestBody @Valid ProductDto productDto) {
-        Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
-        if (!optionalCategory.isPresent()) {
-            return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);
-        }
-        Category category = optionalCategory.get();
-        productService.updateProduct(productID, productDto, category);
-        return new ResponseEntity<>(new ApiResponse(true, "Product has been updated"), HttpStatus.OK);
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") Integer productID,
+                                                     @RequestBody @Valid ProductDto productDto) {
+       //TODO
+        // should update a product, when productDTO is passed in body
     }
 }
