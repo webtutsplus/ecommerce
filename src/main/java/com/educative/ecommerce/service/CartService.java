@@ -3,6 +3,7 @@ package com.educative.ecommerce.service;
 import com.educative.ecommerce.dto.cart.AddToCartDto;
 import com.educative.ecommerce.dto.cart.CartDto;
 import com.educative.ecommerce.dto.cart.CartItemDto;
+import com.educative.ecommerce.exceptions.CartItemNotExistException;
 import com.educative.ecommerce.model.Cart;
 import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.model.User;
@@ -42,5 +43,15 @@ public class CartService {
 
         // return cart DTO
         return new CartDto(cartItems,totalCost);
+    }
+
+    public void deleteCartItem(int cartItemId, User user) throws CartItemNotExistException {
+        //TODO
+
+        // first check if cartItemId is valid else throw an CartItemNotExistException
+
+        // next check if the cartItem belongs to the user else throw CartItemNotExistException exception
+
+        // delete the cart item
     }
 }

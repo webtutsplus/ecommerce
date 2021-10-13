@@ -17,4 +17,10 @@ public class ExceptionControllerAdvice {
     public final ResponseEntity<String> handleUpdateFailException(ProductNotExistException exception){
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
+
+    // handle invalid id exception
+    @ExceptionHandler(value = CartItemNotExistException.class)
+    public final ResponseEntity<String> handleCartItemNotExistException(CartItemNotExistException exception){
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
+    }
 }
