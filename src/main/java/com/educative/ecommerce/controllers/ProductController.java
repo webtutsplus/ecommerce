@@ -29,11 +29,6 @@ public class ProductController {
     @Autowired
     CategoryService categoryService;
 
-    @GetMapping("/")
-    public ResponseEntity<List<ProductDto>> getProducts() {
-        List<ProductDto> body = productService.listProducts();
-        return new ResponseEntity<>(body, HttpStatus.OK);
-    }
 
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> addProduct(@RequestBody ProductDto productDto) {
@@ -46,8 +41,17 @@ public class ProductController {
         return new ResponseEntity<>(new ApiResponse(true, "Product has been added"), HttpStatus.CREATED);
     }
 
+    // list all the products
+    @GetMapping("/")
+    public ResponseEntity<List<ProductDto>> getProducts() {
+        List<ProductDto> productDtos = productService.listProducts();
+        return new ResponseEntity<>(productDtos, HttpStatus.OK);
+    }
+
+    // update a product
     @PostMapping("/update/{productID}")
-    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") Integer productID, @RequestBody @Valid ProductDto productDto) {
+    public ResponseEntity<ApiResponse> updateProduct(@PathVariable("productID") Integer productID,
+                                                     @RequestBody @Valid ProductDto productDto) {
         Optional<Category> optionalCategory = categoryService.readCategory(productDto.getCategoryId());
         if (!optionalCategory.isPresent()) {
             return new ResponseEntity<ApiResponse>(new ApiResponse(false, "category is invalid"), HttpStatus.CONFLICT);
