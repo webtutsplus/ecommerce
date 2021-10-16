@@ -78,7 +78,13 @@ public class OrderController {
             throws AuthenticationFailException, OrderNotFoundException {
         // 1. validate token
 
+        // validate token
+        authenticationService.authenticate(token);
+
         // 2. find user
+
+        // retrieve user
+        User user = authenticationService.getUser(token);
 
 
         // 3. call getOrder method of order service an pass orderId and user
@@ -86,6 +92,8 @@ public class OrderController {
         Order order = orderService.getOrder(id, user);
 
         // 4. display order in json response
+
+        return new ResponseEntity<>(order, HttpStatus.OK);
 
     }
 

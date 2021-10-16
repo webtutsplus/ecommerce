@@ -133,11 +133,25 @@ public class OrderService {
         // 1. validate the order
         // if the order not valid throw exception
 
-        // check if the order belong to user
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
 
-        // else throw OrderNotFoundException
+        if (optionalOrder.isEmpty()) {
+            /// throw exception
+            throw  new OrderNotFoundException("order id is not valid");
+        }
+
+        // check if the order belongs to user
+
+        Order order = optionalOrder.get();
+
+        if(order.getUser() != user) {
+            // else throw OrderNotFoundException
+            throw  new OrderNotFoundException("order does not belong to user");
+        }
 
         // return the order
+
+        return  order;
     }
 }
 
