@@ -70,22 +70,4 @@ public class OrderController {
 
         return new ResponseEntity<>(orderDtoList, HttpStatus.OK);
     }
-
-
-    // get orderitems for an order
-    @GetMapping("/{id}")
-    public ResponseEntity<Object> getOrderById(@PathVariable("id") Integer id, @RequestParam("token") String token)
-            throws AuthenticationFailException {
-        // validate token
-        authenticationService.authenticate(token);
-        try {
-            Order order = orderService.getOrder(id);
-            return new ResponseEntity<>(order,HttpStatus.OK);
-        }
-        catch (OrderNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
-        }
-
-    }
-
 }
