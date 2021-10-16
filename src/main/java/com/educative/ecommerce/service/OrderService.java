@@ -128,13 +128,16 @@ public class OrderService {
         return orderRepository.findAllByUserOrderByCreatedDateDesc(user);
     }
 
+    // find the order by id, validate if the order belong to user and return
+    public Order getOrder(Integer orderId, User user) throws OrderNotFoundException {
+        // 1. validate the order
+        // if the order not valid throw exception
 
-    public Order getOrder(Integer orderId) throws OrderNotFoundException {
-        Optional<Order> order = orderRepository.findById(orderId);
-        if (order.isPresent()) {
-            return order.get();
-        }
-        throw new OrderNotFoundException("Order not found");
+        // check if the order belong to user
+
+        // else throw OrderNotFoundException
+
+        // return the order
     }
 }
 
