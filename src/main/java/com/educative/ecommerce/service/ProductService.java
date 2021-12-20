@@ -1,6 +1,7 @@
 package com.educative.ecommerce.service;
 
 import com.educative.ecommerce.dto.ProductDto;
+import com.educative.ecommerce.exceptions.ProductNotExistsException;
 import com.educative.ecommerce.model.Category;
 import com.educative.ecommerce.model.Product;
 import com.educative.ecommerce.repository.ProductRepository;
@@ -59,5 +60,13 @@ public class ProductService {
         product.setName(productDto.getName());
         product.setPrice(productDto.getPrice());
         productRepository.save(product);
+    }
+
+    public Product findById(Integer productId) throws ProductNotExistsException {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        if (optionalProduct.isEmpty()) {
+            throw new ProductNotExistsException("product id is invalid: " + productId);
+        }
+        return optionalProduct.get();
     }
 }
