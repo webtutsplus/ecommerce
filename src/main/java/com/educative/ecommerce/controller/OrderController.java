@@ -28,7 +28,7 @@ public class OrderController {
     private OrderService orderService;
 
     // stripe session checkout api
-
+    // https://stripe.com/docs/payments/accept-a-payment?platform=web&ui=checkout#redirect-customers
     @PostMapping("/create-checkout-session")
     public ResponseEntity<StripeResponse> checkoutList(@RequestBody List<CheckoutItemDto> checkoutItemDtoList)
             throws StripeException {

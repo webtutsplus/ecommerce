@@ -30,7 +30,7 @@ public class UserController {
 
     // signin
 
-    @PostMapping("/signin")
+    @PostMapping("/signIn")
     public SignInReponseDto signIn(@RequestBody SignInDto signInDto) {
         return userService.signIn(signInDto);
     }
