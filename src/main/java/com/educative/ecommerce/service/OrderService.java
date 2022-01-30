@@ -60,7 +60,7 @@ public class OrderService {
     private SessionCreateParams.LineItem.PriceData createPriceData(CheckoutItemDto checkoutItemDto) {
         return SessionCreateParams.LineItem.PriceData.builder()
                 .setCurrency("usd")
-                .setUnitAmount((long)checkoutItemDto.getPrice()*100)
+                .setUnitAmount((long)(checkoutItemDto.getPrice()*100))
                 .setProductData(
                         SessionCreateParams.LineItem.PriceData.ProductData.builder()
                             .setName(checkoutItemDto.getProductName())
